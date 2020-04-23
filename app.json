@@ -1,5 +1,5 @@
 {
-  "name": "UniBorg",
+  "name": "UserBot",
   "description": "Modular UserBot powered by @TelethonChat!",
   "logo": "https://telegra.ph/file/6ce444f5ba54d79fb8622.jpg",
   "keywords": [
@@ -140,11 +140,11 @@
     },
     "HEROKU_APP_NAME": {
       "description": "heroku app name for .update",
-      "required": True
+      "required": false
     },
     "HEROKU_API_KEY": {
       "description": "get it from heroku settings",
-      "required": True
+      "required": false
     },
     "CHROME_BIN": {
       "description": "Leave as it is",
