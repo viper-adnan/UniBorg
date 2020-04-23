@@ -130,6 +130,32 @@
       "description": "Get your credentials from https://da.gd/so63O",
       "required": false
     },
+    "GITHUB_ACCESS_TOKEN": {
+      "description": "This is required for commit functionality to work.",
+      "required": false
+    },
+    "GIT_REPO_NAME": {
+      "description": "This is required for commit functionality to work.",
+      "required": false
+    },
+    "HEROKU_APP_NAME": {
+      "description": "heroku app name for .update",
+      "required": True
+    },
+    "HEROKU_API_KEY": {
+      "description": "get it from heroku settings",
+      "required": True
+    },
+    "CHROME_BIN": {
+      "description": "Leave as it is",
+      "value": "/app/.apt/usr/bin/google-chrome",
+      "required": false
+    },
+    "CHROME_DRIVER": {
+      "description": "Leave as it is",
+      "value": "/app/.chromedriver/bin/chromedriver",
+      "required": false
+    },
     "TELE_GRAM_2FA_CODE": {
       "description": "Your Telegram 2FA code as a string",
       "required": false
