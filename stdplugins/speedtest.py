@@ -13,7 +13,7 @@ async def _(event):
     if event.fwd_from:
         return
     input_str = event.pattern_match.group(1)
-    as_text = True
+    as_text = False
     as_document = True
     if input_str == "image":
         as_document = False
@@ -28,7 +28,7 @@ async def _(event):
     s.download()
     s.upload()
     end = datetime.now()
-    ms = (end - start).microseconds / 1000
+    ms = (end - start).microseconds / 100000
     response = s.results.dict()
     download_speed = response.get("download")
     upload_speed = response.get("upload")
