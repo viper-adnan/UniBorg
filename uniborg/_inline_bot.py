@@ -67,9 +67,9 @@ if Config.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         query = event.text
         if event.query.user_id == borg.uid and query.startswith("@UniBorg"):
             rev_text = query[::-1]
-            buttons = paginate_help(0, borg._plugins, "helpme")
+            buttons = paginate_help(0, borg._plugins, "help")
             result = builder.article(
-                "© @UniBorg",
+                "-------------------------",
                 text="{}\nCurrently Loaded Plugins: {}".format(
                     query, len(borg._plugins)),
                 buttons=buttons,
@@ -77,8 +77,8 @@ if Config.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             )
         elif query.startswith("tb_btn"):
             result = builder.article(
-                "Button Parser © @UniBorg",
-                text=f"powered by @UniBorg",
+                "",
+                text=f"",
                 buttons=[],
                 link_preview=True
             )
