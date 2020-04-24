@@ -1,7 +1,7 @@
 {
   "name": "UserBot",
   "description": "Modular UserBot powered by @TelethonChat!",
-  "logo": "https://telegra.ph/file/6ce444f5ba54d79fb8622.jpg",
+  "logo": "https://telegra.ph/file/e742b80b743eaafc14ab4.jpg",
   "keywords": [
     "telegram",
     "userbot",
@@ -139,7 +139,7 @@
       "required": false
     },
     "HEROKU_APP_NAME": {
-      "description": "heroku app name for .update",
+      "description": "Same you entered above.",
       "required": false
     },
     "HEROKU_API_KEY": {
