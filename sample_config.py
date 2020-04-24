@@ -105,6 +105,7 @@ class Config(object):
     #
     LYDIA_API = os.environ.get("LYDIA_API", None)
     #
+    PROFILE_IMAGE = os.environ.get("PROFILE_IMAGE", "https://telegra.ph/file/3a7e35294db9e8e949233.jpg")
     # define "spam" in PMs
     MAX_FLOOD_IN_P_M_s = int(os.environ.get("MAX_FLOOD_IN_P_M_s", 5))
     # leave this blank, should be automatically filled for Heroku.com users
