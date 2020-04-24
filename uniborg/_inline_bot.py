@@ -101,23 +101,23 @@ All instaructions to run @UniBorg in your PC has been explained in https://githu
 
 
     @tgbot.on(events.callbackquery.CallbackQuery(  # pylint:disable=E0602
-        data=re.compile(b"helpme_next\((.+?)\)")
+        data=re.compile(b"help_next\((.+?)\)")
     ))
     async def on_plug_in_callback_query_handler(event):
         if event.query.user_id == borg.uid:  # pylint:disable=E0602
             current_page_number = int(
                 event.data_match.group(1).decode("UTF-8"))
             buttons = paginate_help(
-                current_page_number + 1, borg._plugins, "helpme")
+                current_page_number + 1, borg._plugins, "help")
             # https://t.me/TelethonChat/115200
             await event.edit(buttons=buttons)
         else:
-            reply_pop_up_alert = "Please get your own @UniBorg, and don't edit my messages!"
+            reply_pop_up_alert = "Please get your own Userbot, and don't edit my messages!"
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
 
     @tgbot.on(events.callbackquery.CallbackQuery(  # pylint:disable=E0602
-        data=re.compile(b"helpme_prev\((.+?)\)")
+        data=re.compile(b"help_prev\((.+?)\)")
     ))
     async def on_plug_in_callback_query_handler(event):
         if event.query.user_id == borg.uid:  # pylint:disable=E0602
@@ -126,12 +126,12 @@ All instaructions to run @UniBorg in your PC has been explained in https://githu
             buttons = paginate_help(
                 current_page_number - 1,
                 borg._plugins,  # pylint:disable=E0602
-                "helpme"
+                "help"
             )
             # https://t.me/TelethonChat/115200
             await event.edit(buttons=buttons)
         else:
-            reply_pop_up_alert = "Please get your own @UniBorg, and don't edit my messages!"
+            reply_pop_up_alert = "Please get your own Userbot, and don't edit my messages!"
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
 
@@ -158,7 +158,7 @@ def paginate_help(page_number, loaded_plugins, prefix):
             helpable_plugins.append(p)
     helpable_plugins = sorted(helpable_plugins)
     modules = [custom.Button.inline(
-        "{} {}".format("✅", x),
+        "{} {}".format("", x),
         data="ub_plugin_{}".format(x))
         for x in helpable_plugins]
     pairs = list(zip(modules[::number_of_cols], modules[1::number_of_cols]))
