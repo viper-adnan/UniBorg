@@ -26,7 +26,7 @@
       "value": ""
     },
     "HU_STRING_SESSION": {
-      "description": "Get this value by running python3 GenerateStringSession.py locally",
+      "description": "Get this value by running https://genstring.viperadnan.repl.run",
       "value": ""
     },
     "OPEN_WEATHER_MAP_APPID": {
@@ -63,7 +63,7 @@
     },
     "TELEGRAPH_SHORT_NAME": {
       "description": "This is required for the @telegraph functionality.",
-      "value": "UniBorg",
+      "value": "Adnan Ahmad",
       "required": false
     },
     "OCR_SPACE_API_KEY": {
@@ -102,16 +102,17 @@
     },
     "SUDO_USERS": {
       "description": "List down the user IDs who should have permission to use you. Be Careful. You are granting access to your entire account to the people you mention in the below field, seperated by SPACE. Send .get_id in any private chat or as a reply to any user in any group, to fill this value",
-      "value": "7351948 500346573 606342588 653184647 751003349 752396210 797179106 804216742 830068297 873236756",
+      "value": "",
       "required": false
     },
     "UB_BLACK_LIST_CHAT": {
       "description": "set blacklist_chats where you do not want userbot features",
-      "value": "-1001220993104 -1001365798550 -1001158304289 -1001212593743 -1001195845680 -1001330468518 -1001221185967 -1001340243678 -1001311056733 -1001135438308 -1001038774929 -1001070622614 -1001119331451 -1001095401841",
+      "value": "",
       "required": false
     },
     "TZ": {
       "description": "set your default time zone for time related features to work correctly. Value should match the string here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones",
+      "value": "Asia/Kolkata",
       "required": false
     },
     "VERY_STREAM_LOGIN": {
