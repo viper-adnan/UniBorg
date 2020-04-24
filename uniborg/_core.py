@@ -20,7 +20,7 @@ async def load_reload(event):
         if shortname in borg._plugins:  # pylint:disable=E0602
             borg.remove_plugin(shortname)  # pylint:disable=E0602
         borg.load_plugin(shortname)  # pylint:disable=E0602
-        msg = await event.respond(f"Successfully (re)loaded plugin {shortname}")
+        msg = await event.respond(f"**Successfully (re)loaded plugin `{shortname}`**")
         await asyncio.sleep(DELETE_TIMEOUT)
         await msg.delete()
     except Exception as e:  # pylint:disable=C0103,W0703
@@ -38,9 +38,9 @@ async def remove(event):
         msg = await event.respond(f"Not removing {shortname}")
     elif shortname in borg._plugins:  # pylint:disable=E0602
         borg.remove_plugin(shortname)  # pylint:disable=E0602
-        msg = await event.respond(f"Removed plugin {shortname}")
+        msg = await event.respond(f"**Removed plugin `{shortname}`**")
     else:
-        msg = await event.respond(f"Plugin {shortname} is not loaded")
+        msg = await event.respond(f"**Plugin `{shortname}` is not loaded**")
     await asyncio.sleep(DELETE_TIMEOUT)
     await msg.delete()
 
@@ -79,10 +79,10 @@ async def install_plug_in(event):
             )
             if "(" not in downloaded_file_name:
                 borg.load_plugin_from_file(downloaded_file_name)  # pylint:disable=E0602
-                await event.edit("Installed Plugin `{}`".format(os.path.basename(downloaded_file_name)))
+                await event.edit("**Installed Plugin `{}` Successfully**".format(os.path.basename(downloaded_file_name)))
             else:
                 os.remove(downloaded_file_name)
-                await event.edit("Errors! Cannot install this plugin.")
+                await event.edit("**Errors! Cannot install this plugin.\nMaybe already installed.**")
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
             os.remove(downloaded_file_name)
