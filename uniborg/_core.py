@@ -30,7 +30,7 @@ async def load_reload(event):
         await event.respond(f"Failed to (re)load plugin {shortname}: {e}")
 
 
-@borg.on(util.admin_cmd(pattern="(?:unload|remove) (?P<shortname>\w+)$"))  # pylint:disable=E0602
+@borg.on(util.admin_cmd(pattern="(?:remove) (?P<shortname>\w+)$"))  # pylint:disable=E0602
 async def remove(event):
     await event.delete()
     shortname = event.pattern_match["shortname"]
@@ -41,6 +41,20 @@ async def remove(event):
         path = "./stdplugins/{}.py".format(shortname)
         os.remove(path)
         msg = await event.respond(f"**Removed `{shortname}` Plugin**")
+    else:
+        msg = await event.respond(f"**Plugin `{shortname}` is not loaded**")
+    await asyncio.sleep(DELETE_TIMEOUT)
+    await msg.delete()
+
+@borg.on(util.admin_cmd(pattern="(?:unload) (?P<shortname>\w+)$"))  # pylint:disable=E0602
+async def remove(event):
+    await event.delete()
+    shortname = event.pattern_match["shortname"]
+    if shortname == "_core":
+        msg = await event.respond(f"**Not unloading `{shortname}` Plugin.")
+    elif shortname in borg._plugins:  # pylint:disable=E0602
+        borg.remove_plugin(shortname)  # pylint:disable=E0602
+        msg = await event.respond(f"**Unloaded `{shortname}` Plugin**")
     else:
         msg = await event.respond(f"**Plugin `{shortname}` is not loaded**")
     await asyncio.sleep(DELETE_TIMEOUT)
