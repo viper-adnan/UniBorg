@@ -39,6 +39,7 @@ async def remove(event):
     elif shortname in borg._plugins:  # pylint:disable=E0602
         borg.remove_plugin(shortname)  # pylint:disable=E0602
         path = "./stdplugins/{}.py".format(shortname)
+        os.remove(path)
         msg = await event.respond(f"**Removed `{shortname}` Plugin**")
     else:
         msg = await event.respond(f"**Plugin `{shortname}` is not loaded**")
