@@ -18,7 +18,7 @@ class Uniborg(TelegramClient):
             self, session, *, n_plugin_path="plugins", db_plugin_path="plugins",
             bot_token=None, api_config=None, **kwargs):
         self._name = "LoggedIn"
-        self._logger = logging.getLogger("UniBorg")
+        self._logger = logging.getLogger("UserBot")
         self._plugins = {}
         self.n_plugin_path = n_plugin_path
         self.db_plugin_path = db_plugin_path
