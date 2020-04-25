@@ -46,7 +46,7 @@ GIT_REPO_URL = os.environ.get("GIT_REPO_URL", "https://github.com/viper-adnan/us
 BOT_IS_UP_TO_DATE = "`The userbot is up-to-date.\nThank you for Using this Service.`"
 NEW_BOT_UP_DATE_FOUND = (
     "**New update found for `{branch_name}` branch.**\n"
-    "**Changelog: `{changelog}`\n\n"
+    "**Changelog: {changelog}\n\n"
     "Updating...**"
 )
 NEW_UP_DATE_FOUND = (
@@ -99,7 +99,7 @@ async def updater(message):
 
     if not changelog:
         await message.edit("**Checking for updates...**")
-        await asyncio.sleep(5)
+        await asyncio.sleep(1.5)
  
     message_one = NEW_BOT_UP_DATE_FOUND.format(
         branch_name=active_branch_name,
@@ -121,7 +121,7 @@ async def updater(message):
         os.remove("change.log")
     else:
         await message.edit(message_one)
-        await asyncio.sleep(5)
+        await asyncio.sleep(1.5)
 
     temp_upstream_remote.fetch(active_branch_name)
     repo.git.reset("--hard", "FETCH_HEAD")
@@ -171,5 +171,5 @@ async def deploy_start(tgbot, message, refspec, remote):
     await message.edit("**Deployment Started Successfully !**")
     remote.push(refspec=refspec)
     await tgbot.disconnect()
-    await message.edit("**Restarted Successfully !**")
+    await message.edit("**Already Up-to-date.**")
     os.execl(sys.executable, sys.executable, *sys.argv)
