@@ -19,7 +19,7 @@ async def _(event):
     if event.fwd_from:
         return
     if Config.PRIVATE_GROUP_BOT_API_ID is None:
-        await event.edit("Please set the required environment variable `PRIVATE_GROUP_BOT_API_ID` for this plugin to work")
+        await event.edit("**Please set the required environment variable `PRIVATE_GROUP_BOT_API_ID` for this plugin to work.**")
         return
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
@@ -39,7 +39,7 @@ async def _(event):
             )
             end = datetime.now()
             ms = (end - start).seconds
-            await event.edit("Downloaded to {} in {} seconds.".format(downloaded_file_name, ms))
+            await event.edit("**Downloaded to `{}`**\n`in {} seconds.`".format(downloaded_file_name, ms))
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
@@ -52,7 +52,7 @@ async def _(event):
                 end = datetime.now()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
-                await event.edit("Uploaded to https://telegra.ph{} in {} seconds.".format(media_urls[0], (ms + ms_two)), link_preview=True)
+                await event.edit("**Uploaded to [Telegraph](https://telegra.ph{})**\n`in {} seconds.`".format(media_urls[0], (ms + ms_two)), link_preview=True)
         elif input_str == "text":
             user_object = await borg.get_entity(r_message.from_id)
             title_of_page = user_object.first_name # + " " + user_object.last_name
@@ -80,9 +80,9 @@ async def _(event):
             )
             end = datetime.now()
             ms = (end - start).seconds
-            await event.edit("Pasted to https://telegra.ph/{} in {} seconds.".format(response["path"], ms), link_preview=True)
+            await event.edit("**Pasted to [Telegraph](https://telegra.ph/{})**\n`in {} seconds.`".format(response["path"], ms), link_preview=True)
     else:
-        await event.edit("Reply to a message to get a permanent telegra.ph link. (Inspired by @ControllerBot)")
+        await event.edit("**Reply to a message to get a permanent telegra.ph link.**")
 
 
 def resize_image(image):
