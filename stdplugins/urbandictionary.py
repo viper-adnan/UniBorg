@@ -2,13 +2,13 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 """Urban Dictionary
-Syntax: .ud Query"""
+Syntax: .urban Query"""
 from telethon import events
 import urbandict
 from uniborg.util import admin_cmd
 
 
-@borg.on(admin_cmd(pattern="ud (.*)"))
+@borg.on(admin_cmd(pattern="urban (.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -18,16 +18,16 @@ async def _(event):
         mean = urbandict.define(str)
         if len(mean) > 0:
             await event.edit(
-                'Text: **' +
+                '**Text: ' +
                 str +
-                '**\n\nMeaning: **' +
+                '**\n\n**Meaning:** `' +
                 mean[0]['def'] +
-                '**\n\n' +
-                'Example: \n__' +
+                '`\n\n' +
+                '**Example:** \n`' +
                 mean[0]['example'] +
-                '__'
+                '`'
             )
         else:
-            await event.edit("No result found for **" + str + "**")
+            await event.edit("**No result found for** `" + str + "`")
     except:
-        await event.edit("No result found for **" + str + "**")
+        await event.edit("**No result found for** `" + str + "`")
