@@ -78,9 +78,7 @@ async def send_plug_in(event):
     )
     end = datetime.now()
     time_taken_in_ms = (end - start).seconds
-    await event.edit("Uploaded {} in {} seconds".format(input_str, time_taken_in_ms))
-    await asyncio.sleep(DELETE_TIMEOUT)
-    await event.delete()
+    await event.edit("**Here is ↓ {} Plugin.**".format(input_str))
 
 
 @borg.on(util.admin_cmd(pattern="install plugin"))  # pylint:disable=E0602
