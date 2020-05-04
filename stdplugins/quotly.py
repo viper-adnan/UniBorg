@@ -49,6 +49,6 @@ async def _(event):
           except YouBlockedUserError: 
               await event.reply("```Please unblock me ( **@QuotLyBot** )```")
               return
-          await event.edit(response)
+          await event.edit(response.message)
           await asyncio.sleep(5)
           await event.delete()
