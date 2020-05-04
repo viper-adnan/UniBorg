@@ -49,6 +49,8 @@ async def _(event):
           except YouBlockedUserError: 
               await event.reply("```Please unblock me ( **@QuotLyBot** )```")
               return
-          await event.edit(response.message)
+          # Leaving as it is because of unknown error. While integrating
+          # in edit message.
+          await event.edit("**Quote Background set to** `{}`".format(color))
           await asyncio.sleep(5)
           await event.delete()
