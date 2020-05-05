@@ -112,7 +112,7 @@ async def install_plug_in(event):
                     borg.n_plugin_path
                 )
                 borg.load_plugin_from_file(duplicate_plugin)
-                await event.edit("**Successfully re-installed `{}` plugin.**".format(os.path.basename(duplicate_plugin))
+                await event.edit("**Successfully re-installed `{}` plugin.**".format(os.path.basename(duplicate_plugin)))
         except Exception as e:
             await event.edit(str(e))
             os.remove(downloaded_file_name)
