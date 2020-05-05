@@ -71,7 +71,7 @@ async def send_plug_in(event):
         help_string = borg._plugins[plugin_name].__doc__
         load_string = f"**\nUse `.install plugin` while replying to this message to install plugin.**"
         if help_string:
-            plugin_syntax = f"**Syntax for plugin `{plugin_name}`**:\n\n{help_string}\n{load_string}"
+            plugin_syntax = f"**Syntax for plugin `{plugin_name}`**:\n\n`{help_string}`\n{load_string}"
         else:
             plugin_syntax = f"{load_string}"
     the_plugin_file = "./stdplugins/{}.py".format(plugin_name)
