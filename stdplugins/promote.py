@@ -21,7 +21,6 @@ async def _(event):
         ban_users=True,
         invite_users=True,
         pin_messages=True,
-        add_admins=True,
     )
     input_str = event.pattern_match.group(1)
     reply_msg_id = event.message.id
@@ -35,7 +34,7 @@ async def _(event):
     except (Exception) as exc:
         await event.edit(str(exc))
     else:
-        await event.edit("Successfully Promoted")
+        await event.edit("**You are now Promoted to admin.**")
 
 
 @borg.on(admin_cmd(pattern="prankpromote ?(.*)"))

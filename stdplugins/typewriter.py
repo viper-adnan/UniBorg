@@ -1,3 +1,5 @@
+""".type <message>
+Write in Typewriter animation"""
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K
@@ -5,7 +7,7 @@ import asyncio
 from uniborg.util import admin_cmd
 
 
-@borg.on(admin_cmd(pattern="typewriter (.*)"))
+@borg.on(admin_cmd(pattern="type (.*)"))
 async def _(event):
     if event.fwd_from:
         return

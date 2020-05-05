@@ -1,4 +1,4 @@
-""".admin Plugin for @UniBorg"""
+"""Report users to Admin by .admin"""
 import asyncio
 from telethon import events
 from telethon.tl.types import ChannelParticipantsAdmins

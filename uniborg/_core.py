@@ -66,19 +66,27 @@ async def send_plug_in(event):
     if event.fwd_from:
         return
     message_id = event.message.id
-    input_str = event.pattern_match["shortname"]
-    the_plugin_file = "./stdplugins/{}.py".format(input_str)
+    plugin_name = event.pattern_match["shortname"]
+    if plugin_name in borg._plugins:
+        help_string = borg._plugins[plugin_name].__doc__
+        load_string = f"**\nUse `.install plugin` while replying to this message to install plugin.**"
+        if help_string:
+            plugin_syntax = f"**Syntax for plugin `{plugin_name}`**:\n\n`{help_string}`\n{load_string}"
+        else:
+            plugin_syntax = f"{load_string}"
+    the_plugin_file = "./stdplugins/{}.py".format(plugin_name)
     start = datetime.now()
     await event.client.send_file(  # pylint:disable=E0602
         event.chat_id,
         the_plugin_file,
+        caption=plugin_syntax,
         force_document=True,
         allow_cache=False,
         reply_to=message_id
     )
     end = datetime.now()
     time_taken_in_ms = (end - start).seconds
-    await event.edit("**Here is ↓ {} Plugin.**".format(input_str))
+    await event.edit("**Here is ↓ {} Plugin.**".format(plugin_name))
 
 
 @borg.on(util.admin_cmd(pattern="install plugin"))  # pylint:disable=E0602
