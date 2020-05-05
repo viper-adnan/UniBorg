@@ -108,12 +108,12 @@ async def install_plug_in(event):
                 borg.remove_plugin(pfile)
                 os.remove("./stdplugins/{}".format(pfile))
                 duplicate_plugin = await event.client.download_media(
-                         await event.get_reply_message(),
-                         borg.n_plugin_path  # pylint:disable=E0602
-                         )
+                    await event.get_reply_message(),
+                    borg.n_plugin_path
+                )
                 borg.load_plugin_from_file(duplicate_plugin)
                 await event.edit("**Successfully re-installed `{}` plugin.**".format(os.path.basename(duplicate_plugin))
-        except Exception as e:  # pylint:disable=C0103,W0703
+        except Exception as e:
             await event.edit(str(e))
             os.remove(downloaded_file_name)
     await asyncio.sleep(DELETE_TIMEOUT)
