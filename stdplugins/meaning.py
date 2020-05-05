@@ -1,4 +1,4 @@
-"""Dictionary Plugin for @UniBorg
+"""Dictionary Plugin for Userbot
 Syntax: .meaning <word>"""
 
 import requests
