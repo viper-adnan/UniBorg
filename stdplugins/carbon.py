@@ -1,7 +1,8 @@
-"""Carbon Scraper Plugin for Userbot. //text in creative way.
-usage: .kargb //as a reply to any text message
+"""Carbon Scraper Plugin for Userbot.
+Command - .carbon <text> or reply to file or message.
+Replying to file is currently UnStable."""
 
-Thanks to @r4v4n4 for vars,,, Random RGB feature and .py file support by @PhycoNinja13b"""
+# Thanks to @r4v4n4 for vars,,, Random RGB feature and .py file support by @PhycoNinja13b
 
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
