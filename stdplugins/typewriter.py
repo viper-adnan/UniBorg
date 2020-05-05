@@ -1,3 +1,5 @@
+""".type <message>
+Write in Typewriter animation"""
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K
