@@ -69,7 +69,7 @@ async def send_plug_in(event):
     plugin_name = event.pattern_match["shortname"]
     if plugin_name in borg._plugins:
         help_string = borg._plugins[plugin_name].__doc__
-        load_string = f"**Use `.install plugin` while replying to this message to install plugin.**"
+        load_string = f"**\nUse `.install plugin` while replying to this message to install plugin.**"
         if help_string:
             plugin_syntax = f"**Syntax for plugin `{plugin_name}`**:\n\n{help_string}\n{load_string}"
         else:
@@ -86,7 +86,7 @@ async def send_plug_in(event):
     )
     end = datetime.now()
     time_taken_in_ms = (end - start).seconds
-    await event.edit("**Here is ↓ {} Plugin.**".format(input_str))
+    await event.edit("**Here is ↓ {} Plugin.**".format(plugin_name))
 
 
 @borg.on(util.admin_cmd(pattern="install plugin"))  # pylint:disable=E0602
