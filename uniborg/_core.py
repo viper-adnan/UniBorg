@@ -103,8 +103,10 @@ async def install_plug_in(event):
                 borg.load_plugin_from_file(downloaded_file_name)  # pylint:disable=E0602
                 await event.edit("**Installed Plugin `{}` Successfully**".format(os.path.basename(downloaded_file_name)))
             else:
-                os.remove(downloaded_file_name)
-                await event.edit("**Errors! Cannot install this plugin.\nMaybe already installed.**")
+                os.remove("./stdplugins/{}".format(os.path.basename(downloaded_file_name)))
+                borg.load_plugin_from_file(downloaded_file_name)  # pylint:disable=E0602
+                await event.edit("**Installed Plugin `{}` Successfully**".format(os.path.basename(downloaded_file_name)))
+                await event.edit("**Errors! Cannot install this plugin.\nMaybe already installed.2**")
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
             os.remove(downloaded_file_name)
