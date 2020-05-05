@@ -49,6 +49,6 @@ async def _(event):
     ms = (end - start).seconds
     if r["isUrl"]:
         nurl = f"https://del.dog/v/{r['key']}"
-        await event.edit("**Dogged to [Dogbin]({})**\n`in {} seconds.`\n**GoTo Original URL: {}**".format(url, ms, nurl))
+        await event.edit("**Dogged to **[Dogbin]({})\n`in {} seconds.`\n**GoTo Original URL: {}**".format(url, ms, nurl))
     else:
-        await event.edit("**Dogged to [Dogbin]({})**\n`in {} seconds.`".format(url, ms))
+        await event.edit("**Dogged to **[Dogbin]({})\n`in {} seconds.`".format(url, ms))
