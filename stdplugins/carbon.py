@@ -18,9 +18,6 @@ import os
 import random
 from uniborg.util import admin_cmd
 
-RED = random.randint(0,256)
-GREEN = random.randint(0,256)
-BLUE = random.randint(0,256)
 THEME= [          "3024-night",
                   "a11y-dark",
                   "blackboard",
@@ -51,10 +48,13 @@ THEME= [          "3024-night",
                   "yeti",
                   "zenburn",
 ]
-The = random.choice(THEME)
 
 @borg.on(admin_cmd(pattern="carbon ?(.*)", allow_sudo=True))
 async def carbon_api(e):
+ RED = random.randint(0,256)
+ GREEN = random.randint(0,256)
+ BLUE = random.randint(0,256)
+ The = random.choice(THEME)
  if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
    """ A Wrapper for carbon.now.sh """
    event = await e.edit("▢▢▢▢▢▢")
@@ -132,6 +132,10 @@ async def carbon_api(e):
 async def carbon_api(e):
  event = await e.edit("**Carbon Profile Picture Activated.**")
  while True:
+  RED = random.randint(0,256)
+  GREEN = random.randint(0,256)
+  BLUE = random.randint(0,256)
+  The = random.choice(THEME)
   if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
     CARBON = 'https://carbon.now.sh/?bg=rgba({R}%2C{G}%2C{B}%2C1)&t={T}&wt=none&l=auto&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Fira%20Code&fs=14px&lh=152%25&si=false&es=2x&wm=false&code={code}'
     CARBONLANG = "en"
