@@ -40,7 +40,7 @@ async def _(event):
         last_name = html.escape(last_name)
         last_name = last_name.replace("\u2060", "")
     if last_name is None:
-      last_name = "⁪⁬⁮⁮⁮⁮ ‌‌‌‌"
+      last_name = "⁮"
     # inspired by https://telegram.dog/afsaI181
     user_bio = replied_user.about
     if user_bio is not None:
@@ -50,10 +50,13 @@ async def _(event):
         last_name=last_name,
         about=user_bio
     ))
-    pfile = await borg.upload_file(profile_pic)  # pylint:disable=E060      
-    await borg(functions.photos.UploadProfilePhotoRequest(  # pylint:disable=E0602
-        pfile
-    ))
+    try:
+        pfile = await borg.upload_file(profile_pic)  # pylint:disable=E060      
+        await borg(functions.photos.UploadProfilePhotoRequest(  # pylint:disable=E0602
+            pfile
+        ))
+    except:
+      pass
     #message_id_to_reply = event.message.reply_to_msg_id
     #if not message_id_to_reply:
     #    message_id_to_reply = event.message.id
@@ -63,6 +66,7 @@ async def _(event):
     #  reply_to=message_id_to_reply,
     #  )
     await event.delete()
+    os.remove(profile_pic)
     await borg.send_message(
       event.chat_id,
       "**We are same bro.**",
