@@ -11,6 +11,7 @@ import telethon.utils
 import telethon.events
 
 from . import hacks
+from .storage import Storage
 
 
 class Uniborg(TelegramClient):
@@ -19,6 +20,7 @@ class Uniborg(TelegramClient):
             bot_token=None, api_config=None, **kwargs):
         self._name = "LoggedIn"
         self._logger = logging.getLogger("UserBot")
+        self.storage = storage or (lambda n: Storage(Path("data") / n))
         self._plugins = {}
         self.n_plugin_path = n_plugin_path
         self.db_plugin_path = db_plugin_path
