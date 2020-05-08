@@ -16,7 +16,7 @@ from .storage import Storage
 
 class Uniborg(TelegramClient):
     def __init__(
-            self, session, *, n_plugin_path="plugins", db_plugin_path="plugins",
+            self, session, *, n_plugin_path="plugins", db_plugin_path="plugins", storage=None,
             bot_token=None, api_config=None, **kwargs):
         self._name = "LoggedIn"
         self._logger = logging.getLogger("UserBot")
