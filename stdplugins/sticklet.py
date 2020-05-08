@@ -53,7 +53,7 @@ async def sticklet(event):
     image_stream.seek(0)
 
     # finally, reply the sticker
-    await event.send_message(event.chat_id, "{}".format(sticktext), file=image_stream, reply_to=reply_message)
+    await event.client.send_message(event.chat_id, "{}".format(sticktext), file=image_stream, reply_to=reply_message)
 
     # cleanup
     try:
