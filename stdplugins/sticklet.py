@@ -23,7 +23,7 @@ async def sticklet(event):
     # get the input text
     # the text on which we would like to do the magic on
     sticktext = event.pattern_match.group(1)
-    reply_message = event.get_reply_message
+    reply_message = event.get_reply_message()
     # delete the userbot command,
     await event.delete()
 
