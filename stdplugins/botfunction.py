@@ -89,3 +89,9 @@ async def _(event):
   await event.edit("[Connected](https://t.me/missrose_bot)")
   await asyncio.sleep(3)
   await event.delete()
+
+@borg.on(admin_cmd(pattern="repo ?(.*)", allow_sudo=True))
+async def _(event):
+    if event.fwd_from:
+        return
+    await event.edit("**Repo of @viperadnan's userbot**\n[Here you Go](https://GitHub.com/viper-adnan/userbot)\nClick on the Deploy Button below to Deploy it on Heroku.\n[Deploy On Heroku](https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2Fviper-adnan%2FUserBot&template=https%3A%2F%2Fgithub.com%2Fviper-adnan%2FUserBot)")
