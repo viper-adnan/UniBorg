@@ -179,5 +179,5 @@ async def carbon_api(e):
        os.remove('./carbon.png') # Removing carbon.png after uploading
        logger.info('Carbon Profile Pic Updated. RGB = ({}, {}, {}) Theme is {}'.format(RED, GREEN, BLUE, The))
        await asyncio.sleep(3600) # Set it to more than 200 seconds
-    except:
+  except:
        pass
