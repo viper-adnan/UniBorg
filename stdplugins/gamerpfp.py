@@ -34,8 +34,12 @@ async def animepp():
 async def main(event):
     await event.edit("**Starting Gamer Profile Pic.**") #Owner @NihiNivi
     while True:
+      try:
         await animepp()
-        file = await event.client.upload_file("donottouch.jpg")  
+        file = await event.client.upload_file("donottouch.jpg")
+        await event.client(functions.photos.DeletePhotosRequest(await event.client.get_profile_photos("me", limit=1)))
         await event.client(functions.photos.UploadProfilePhotoRequest( file))
         os.system("rm -rf donottouch.jpg")
-        await asyncio.sleep(60) #Edit this to your required needs
+      except:
+        pass
+      await asyncio.sleep(60) #Edit this to your required needs
