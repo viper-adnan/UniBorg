@@ -86,4 +86,4 @@ async def _(event):
     try:
       await event.client(functions.photos.DeletePhotosRequest(await event.client.get_profile_photos("me", limit=n)))
     except Exception as e:
-        await event.edit(str(e))
+        logger.info(str(e))
