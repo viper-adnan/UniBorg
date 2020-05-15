@@ -73,3 +73,13 @@ async def _(event):
         os.remove(photo)
     except Exception as e:  # pylint:disable=C0103,W0703
         logger.warn(str(e))  # pylint:disable=E0602
+
+@borg.on(admin_cmd(pattern="delpfp ((.|\n)*)"))  # pylint:disable=E0602,W0703
+async def _(event):
+    if event.fwd_from:
+        return
+    if event.pattern_match.group(1):
+       n = event.pattern_match.group(1)
+    else:
+       n = 1
+    await event.client(functions.photos.DeletePhotosRequest(await event.client.get_profile_photos("me", limit=n)))
