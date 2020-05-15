@@ -1,7 +1,8 @@
 """Profile Updation Commands
 .setbio <Bio>
 .setname <Name>
-.setpfp <reply to image>"""
+.setpfp <reply to image>
+.delpfp <number>"""
 import os
 from telethon import events
 from telethon.tl import functions
@@ -82,4 +83,7 @@ async def _(event):
        n = event.pattern_match.group(1)
     else:
        n = 1
-    await event.client(functions.photos.DeletePhotosRequest(await event.client.get_profile_photos("me", limit=n)))
+    try:
+      await event.client(functions.photos.DeletePhotosRequest(await event.client.get_profile_photos("me", limit=n)))
+    except Exception as e:
+        await event.edit(str(e))
