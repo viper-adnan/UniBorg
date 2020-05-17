@@ -20,10 +20,7 @@ if AUTOPFP_PACK is None:
   "darth-vader-wallpaper"
   ]
 else:
-  PACK= []
-  PACKS = AUTOPFP_PACK.replace(" ", ", ")
-  PACK.append(PACKS)
-
+  PACK = AUTOPFP_PACK
 async def animepp():
     os.system("rm -rf donot.jpg")
     rnd = random.randint(0, len(PACK) - 1)
