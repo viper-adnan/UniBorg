@@ -18,9 +18,6 @@ import os
 import random
 from uniborg.util import admin_cmd
 
-RED = random.randint(0,256)
-GREEN = random.randint(0,256)
-BLUE = random.randint(0,256)
 THEME= [          "3024-night",
                   "a11y-dark",
                   "blackboard",
@@ -51,10 +48,13 @@ THEME= [          "3024-night",
                   "yeti",
                   "zenburn",
 ]
-The = random.choice(THEME)
 
 @borg.on(admin_cmd(pattern="carbon ?(.*)", allow_sudo=True))
 async def carbon_api(e):
+ RED = random.randint(0,256)
+ GREEN = random.randint(0,256)
+ BLUE = random.randint(0,256)
+ The = random.choice(THEME)
  if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
    """ A Wrapper for carbon.now.sh """
    event = await e.edit("▢▢▢▢▢▢")
@@ -132,45 +132,52 @@ async def carbon_api(e):
 async def carbon_api(e):
  event = await e.edit("**Carbon Profile Picture Activated.**")
  while True:
-  if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
-    CARBON = 'https://carbon.now.sh/?bg=rgba({R}%2C{G}%2C{B}%2C1)&t={T}&wt=none&l=auto&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Fira%20Code&fs=14px&lh=152%25&si=false&es=2x&wm=false&code={code}'
-    CARBONLANG = "en"
-    reply_text = await e.get_reply_message()
-    input_str = e.pattern_match.group(1)
-    if input_str:
-        pcode = input_str
-    elif reply_text:
-        pcode = str(reply_text.message) # Importing message to module
-    else:
-        await event.edit("**I need something to make carbon.**")
-    code = quote_plus(pcode) # Converting to urlencoded
-    url = CARBON.format(code=code, R=RED, G=GREEN, B=BLUE, T=The, lang=CARBONLANG)
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.binary_location = Config.GOOGLE_CHROME_BIN
-    chrome_options.add_argument("--window-size=1920x1080")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument('--disable-gpu')
-    prefs = {'download.default_directory' : './'}
-    chrome_options.add_experimental_option('prefs', prefs)
-    driver = webdriver.Chrome(executable_path=Config.CHROME_DRIVER, options=chrome_options)
-    driver.get(url)
-    download_path = './'
-    driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
-    params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': download_path}}
-    command_result = driver.execute("send_command", params)
-    driver.find_element_by_id("export-menu").click()
-    sleep(5) # this might take a bit.
-    driver.find_element_by_xpath("//button[contains(text(),'4x')]").click()
-    sleep(5)
-    driver.find_element_by_xpath("//button[contains(text(),'PNG')]").click()
-    sleep(5) #Waiting for downloading
-    file = './carbon.png'
-    ppic = await e.client.upload_file(file)
-    await e.client(functions.photos.UploadProfilePhotoRequest(
-            ppic
-            ))
-    os.remove('./carbon.png') # Removing carbon.png after uploading
-    logger.info('Carbon Profile Pic Updated. RGB = ({}, {}, {}) Theme is {}'.format(RED, GREEN, BLUE, The))
-    await asyncio.sleep(3600) # Set it to more than 200 seconds
+  try:
+     RED = random.randint(0,256)
+     GREEN = random.randint(0,256)
+     BLUE = random.randint(0,256)
+     The = random.choice(THEME)
+     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
+       CARBON = 'https://carbon.now.sh/?bg=rgba({R}%2C{G}%2C{B}%2C1)&t={T}&wt=none&l=auto&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Fira%20Code&fs=14px&lh=152%25&si=false&es=2x&wm=false&code={code}'
+       CARBONLANG = "en"
+       reply_text = await e.get_reply_message()
+       input_str = e.pattern_match.group(1)
+       if input_str:
+           pcode = input_str
+       elif reply_text:
+           pcode = str(reply_text.message) # Importing message to module
+       else:
+           await event.edit("**I need something to make carbon.**")
+       code = quote_plus(pcode) # Converting to urlencoded
+       url = CARBON.format(code=code, R=RED, G=GREEN, B=BLUE, T=The, lang=CARBONLANG)
+       chrome_options = Options()
+       chrome_options.add_argument("--headless")
+       chrome_options.binary_location = Config.GOOGLE_CHROME_BIN
+       chrome_options.add_argument("--window-size=1920x1080")
+       chrome_options.add_argument("--disable-dev-shm-usage")
+       chrome_options.add_argument("--no-sandbox")
+       chrome_options.add_argument('--disable-gpu')
+       prefs = {'download.default_directory' : './'}
+       chrome_options.add_experimental_option('prefs', prefs)
+       driver = webdriver.Chrome(executable_path=Config.CHROME_DRIVER, options=chrome_options)
+       driver.get(url)
+       download_path = './'
+       driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
+       params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': download_path}}
+       command_result = driver.execute("send_command", params)
+       driver.find_element_by_id("export-menu").click()
+       sleep(5) # this might take a bit.
+       driver.find_element_by_xpath("//button[contains(text(),'4x')]").click()
+       sleep(5)
+       driver.find_element_by_xpath("//button[contains(text(),'PNG')]").click()
+       sleep(5) #Waiting for downloading
+       file = './carbon.png'
+       ppic = await e.client.upload_file(file)
+       await e.client(functions.photos.UploadProfilePhotoRequest(
+               ppic
+               ))
+       os.remove('./carbon.png') # Removing carbon.png after uploading
+       logger.info('Carbon Profile Pic Updated. RGB = ({}, {}, {}) Theme is {}'.format(RED, GREEN, BLUE, The))
+  except:
+       pass
+  await asyncio.sleep(3600) # Set it to more than 200 seconds

@@ -10,18 +10,21 @@ from uniborg.util import admin_cmd
 import asyncio
 from time import sleep
 
-COLLECTION_STRING = [
+AUTOPFP_PACK = os.environ.get("AUTOPFP_PACK", None)
+if AUTOPFP_PACK is None:
+  PACK = [
   "star-wars-wallpaper-1080p",
   "4k-sci-fi-wallpaper",
   "star-wars-iphone-6-wallpaper",
   "kylo-ren-wallpaper",
   "darth-vader-wallpaper"
-]
-
+  ]
+else:
+  PACK = AUTOPFP_PACK
 async def animepp():
     os.system("rm -rf donot.jpg")
-    rnd = random.randint(0, len(COLLECTION_STRING) - 1)
-    pack = COLLECTION_STRING[rnd]
+    rnd = random.randint(0, len(PACK) - 1)
+    pack = PACK[rnd]
     pc = requests.get("http://getwallpapers.com/collection/" + pack).text
     f = re.compile('/\w+/full.+.jpg')
     f = f.findall(pc)
@@ -32,10 +35,14 @@ async def animepp():
     urllib.request.urlretrieve(fy,"donottouch.jpg")
 @borg.on(admin_cmd(pattern="gamerpfp ?(.*)"))
 async def main(event):
-    await event.edit("**Starting Gamer Profile Pic.\n\nModded by @ViperAdnan**") #Owner @NihiNivi
+    await event.edit("**Starting Gamer Profile Pic.**") #Owner @NihiNivi
     while True:
+      try:
         await animepp()
-        file = await event.client.upload_file("donottouch.jpg")  
+        file = await event.client.upload_file("donottouch.jpg")
+        await event.client(functions.photos.DeletePhotosRequest(await event.client.get_profile_photos("me", limit=1)))
         await event.client(functions.photos.UploadProfilePhotoRequest( file))
         os.system("rm -rf donottouch.jpg")
-        await asyncio.sleep(60) #Edit this to your required needs
+      except:
+        pass
+      await asyncio.sleep(60) #Edit this to your required needs
