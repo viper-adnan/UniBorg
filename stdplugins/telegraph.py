@@ -10,11 +10,7 @@ from telegraph import Telegraph, upload_file, exceptions
 from uniborg.util import admin_cmd
 
 telegraph = Telegraph()
-if Config.TELEGRAPH_SHORT_NAME is not None:
-   SHORT_NAME = Config.TELEGRAPH_SHORT_NAME
-else:
-   SHORT_NAME = "[Adnan Ahmad](https://facebook.com/viperadnan)"
-r = telegraph.create_account(short_name=SHORT_NAME)
+r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
 auth_url = r["auth_url"]
 
 
