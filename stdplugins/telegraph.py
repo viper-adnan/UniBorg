@@ -10,7 +10,11 @@ from telegraph import Telegraph, upload_file, exceptions
 from uniborg.util import admin_cmd
 
 telegraph = Telegraph()
-r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
+if Config.TELEGRAPH_SHORT_NAME is not None:
+   SHORT_NAME = Config.TELEGRAPH_SHORT_NAME
+else:
+   SHORT_NAME = "[Adnan Ahmad](https://facebook.com/viperadnan)"
+r = telegraph.create_account(short_name=SHORT_NAME)
 auth_url = r["auth_url"]
 
 
@@ -46,7 +50,7 @@ async def _(event):
                 start = datetime.now()
                 media_urls = upload_file(downloaded_file_name)
             except exceptions.TelegraphException as exc:
-                await event.edit("ERROR: " + str(exc))
+                await event.edit("**ERROR: **" + str(exc))
                 os.remove(downloaded_file_name)
             else:
                 end = datetime.now()
