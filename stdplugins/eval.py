@@ -13,7 +13,7 @@ import io
 from uniborg.util import admin_cmd
 
 
-@borg.on(admin_cmd(pattern="eval"))
+@borg.on(admin_cmd(pattern="eval", allow_sudo=True))
 async def _(event):
     if event.fwd_from or event.via_bot_id:
         return
