@@ -12,9 +12,16 @@ import asyncio
 from uniborg.util import admin_cmd
 
 unban_rights = ChatBannedRights(
-                until_date=0,
-                view_messages=False
-                )
+    until_date=None,
+    view_messages=None,
+    send_messages=None,
+    send_media=None,
+    send_stickers=None,
+    send_gifs=None,
+    send_games=None,
+    send_inline=None,
+    embed_links=None
+)
 
 @borg.on(admin_cmd(pattern="unbanall ?(.*)"))
 async def _(event):
