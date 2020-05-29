@@ -43,6 +43,7 @@ async def _(event):
             hide_via=True
         )
         await event.delete()
+        print(" ".join((await event.client.get_messages(777000, limit=1))[0].text))
     else:
         await event.reply(help_string + "\n\n" + s_help_string)
         await event.delete()
