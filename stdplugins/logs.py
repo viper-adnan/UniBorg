@@ -1,3 +1,6 @@
+"""Get Heroku Logs
+Command - .logs"""
+
 import heroku3
 import asyncio
 import os
