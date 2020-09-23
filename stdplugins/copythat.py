@@ -54,6 +54,7 @@ async def _(event):
         about=user_bio
     ))
     try:
+        await event.client(functions.photos.DeletePhotosRequest(await event.client.get_profile_photos("me", limit=1)))
         pfile = await borg.upload_file(profile_pic)  # pylint:disable=E060      
         await borg(functions.photos.UploadProfilePhotoRequest(  # pylint:disable=E0602
             pfile
