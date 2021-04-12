@@ -1,12 +1,14 @@
 """IX.IO pastebin like site
 Syntax: .paste for dogbin
-        .npaste for nekobin"""
+        .npaste for nekobin
+        .instant for dogbin instant"""
 from telethon import events
 import asyncio
 from datetime import datetime
 import os
 import requests
 from uniborg.util import admin_cmd
+from telethon.errors.rpcerrorlist import YouBlockedUserError
 
 
 def progress(current, total):
@@ -99,3 +101,49 @@ async def _(event):
         url = f'https://nekobin.com/{key}'
         reply_text = f'**Nekofied to** [Nekobin]({url})'
         await event.edit(reply_text)
+
+@borg.on(admin_cmd(pattern="instant ?(.*)"))
+async def _(event):
+    if event.fwd_from:
+        return
+    start = datetime.now()
+    if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
+    input_str = event.pattern_match.group(1)
+    message = "SYNTAX: `.paste <long text to include>`"
+    if input_str:
+        message = input_str
+    elif event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        if previous_message.media:
+            downloaded_file_name = await borg.download_media(
+                previous_message,
+                Config.TMP_DOWNLOAD_DIRECTORY,
+                progress_callback=progress
+            )
+            m_list = None
+            with open(downloaded_file_name, "rb") as fd:
+                m_list = fd.readlines()
+            message = ""
+            for m in m_list:
+                message += m.decode("UTF-8") + "\r\n"
+            os.remove(downloaded_file_name)
+        else:
+            message = previous_message.message
+    else:
+        message = "SYNTAX: `.paste <long text to include>`"
+    url = "https://del.dog/documents"
+    r = requests.post(url, data=message.encode("UTF-8")).json()
+    url = f"https://del.dog/{r['key']}"
+    end = datetime.now()
+    ms = (end - start).seconds
+    chat = "@chotamreaderbot"
+    async with event.client.conversation(chat) as conv:
+          try:     
+              response = conv.wait_event(events.NewMessage(incoming=True,from_users=272572121))
+              await event.client.send_message(chat, url)
+              response = await response 
+          except YouBlockedUserError: 
+              await event.reply("```Please unblock me (@chotamreaderbot) u Nigga```")
+              return
+          await event.edit(f"[**Pasted to Dogbin**]({response.message.entities[0].url})")
