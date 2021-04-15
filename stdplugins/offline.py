@@ -65,25 +65,10 @@ async def _(event):
     else:
       await event.edit("**Already Online.**")
       return
-    if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):  # pylint:disable=E0602
-        os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)  # pylint:disable=E0602
-    urllib.request.urlretrieve(PROFILE_IMAGE,"donottouch.jpg")
-    photo = "donottouch.jpg"
-    if photo:
-        file = await event.client.upload_file(photo)
-        try:
-            await borg(functions.photos.UploadProfilePhotoRequest(file))
-        except Exception as e:  # pylint:disable=C0103,W0703
-            await event.edit(str(e))
-        else:
-            await event.edit("**Changed profile to Online.**")
-    try:
-        os.system("rm -fr donottouch.jpg")
-    except Exception as e:  # pylint:disable=C0103,W0703
-        logger.warn(str(e))  # pylint:disable=E0602
     first_name = user.last_name
     last_name = ""
     try:
+        await event.client(functions.photos.DeletePhotosRequest(await event.client.get_profile_photos("me", limit=1)))
         await borg(functions.account.UpdateProfileRequest(  # pylint:disable=E0602
             last_name=last_name,
             first_name=first_name
