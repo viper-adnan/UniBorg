@@ -23,7 +23,7 @@ async def _(event):
     user = await event.client.get_entity(user_it)
     if user.first_name.startswith(OFFLINE_TAG):
         await event.edit("**Already in Offline Mode.**")
-        asyncio.sleep(2)
+        await asyncio.sleep(2)
         await event.delete()      
         return
     await event.edit("**Changing Profile to Offline...**")
@@ -54,7 +54,7 @@ async def _(event):
         await event.edit(result)
     except Exception as e:  # pylint:disable=C0103,W0703
         await event.edit(str(e))
-    asyncio.sleep(3)
+    await asyncio.sleep(3)
     await event.delete()
 
 @borg.on(admin_cmd(pattern="online"))  # pylint:disable=E0602
@@ -67,7 +67,7 @@ async def _(event):
         await event.edit("**Changing Profile to Online...**")
     else:
       await event.edit("**Already Online.**")
-      asyncio.sleep(2)
+      await asyncio.sleep(2)
       await event.delete()
       return
     first_name = user.last_name
@@ -82,5 +82,5 @@ async def _(event):
         await event.edit(result)
     except Exception as e:  # pylint:disable=C0103,W0703
         await event.edit(str(e))
-    asyncio.sleep(3)
+    await asyncio.sleep(3)
     await event.delete()
