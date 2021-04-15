@@ -1,7 +1,7 @@
 """
 Commands - .offline .online
 Offline = Add an offline tag in your name and change profile pic to black.
-Online = Remove Offline Tag from your name and change profile pic to vars PROFILE_IMAGE.
+Online = Remove Offline Tag from your name and delete the black profile picture.
 Note - If you have a last name remove it unless it automatically removed.
 """
 
@@ -14,7 +14,6 @@ from telethon.tl import functions
 from uniborg.util import admin_cmd
 
 OFFLINE_TAG = "[Offline]"
-PROFILE_IMAGE = os.environ.get("PROFILE_IMAGE", "https://telegra.ph/file/dc18371c6bb769d175419.jpg")
 
 @borg.on(admin_cmd(pattern="offline"))  # pylint:disable=E0602
 async def _(event):
