@@ -8,7 +8,7 @@ Note - If you have a last name remove it unless it automatically removed.
 # Made by @ViperAdnan
 # Keep Credits if yoy are going to kang it.
 
-import os , urllib
+import os , urllib, asyncio
 from telethon import events
 from telethon.tl import functions
 from uniborg.util import admin_cmd
