@@ -20,7 +20,7 @@ async def _(event):
     await event.edit("`It will take 30 seconds for restarting.`\n**Restarted Successfully !**")
     await asyncio.sleep(1.5)
     await event.edit("**Restarted Successfully !**")
-    if Config.HEROKU_APP_NAME and HEROKU_API_KEY:
+    if Config.HEROKU_APP_NAME and Config.HEROKU_API_KEY:
       heroku_conn = heroku3.from_key(Config.HEROKU_API_KEY)
       app = heroku_conn.app(Config.HEROKU_APP_NAME)
       app.restart()
