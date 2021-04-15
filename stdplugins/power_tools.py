@@ -9,6 +9,7 @@ from telethon import events
 import asyncio
 import os
 import sys
+import heroku3
 from uniborg.util import admin_cmd
 
 
@@ -16,17 +17,17 @@ from uniborg.util import admin_cmd
 async def _(event):
     if event.fwd_from:
         return
-    # await asyncio.sleep(2)
-    # await event.edit("Restarting [██░] ...\n`.ping` me or `.helpme` to check if I am online")
-    # await asyncio.sleep(2)
     await event.edit("`It will take 30 seconds for restarting.`\n**Restarted Successfully !**")
     await asyncio.sleep(1.5)
     await event.edit("**Restarted Successfully !**")
-    await borg.disconnect()
-    # https://archive.is/im3rt
-    os.execl(sys.executable, sys.executable, *sys.argv)
-    # You probably don't need it but whatever
-    quit()
+    if Config.HEROKU_APP_NAME and HEROKU_API_KEY:
+      heroku_conn = heroku3.from_key(Config.HEROKU_API_KEY)
+      app = heroku_conn.app(Config.HEROKU_APP_NAME)
+      app.restart()
+    else:
+      await borg.disconnect()
+      os.execl(sys.executable, sys.executable, *sys.argv)
+      quit()
 
 
 @borg.on(admin_cmd(pattern="shutdown"))
