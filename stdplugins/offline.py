@@ -24,7 +24,7 @@ async def _(event):
     if user.first_name.startswith(OFFLINE_TAG):
         await event.edit("**Already in Offline Mode.**")
         asyncio.sleep(2)
-        event.delete()      
+        await event.delete()      
         return
     await event.edit("**Changing Profile to Offline...**")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):  # pylint:disable=E0602
@@ -55,7 +55,7 @@ async def _(event):
     except Exception as e:  # pylint:disable=C0103,W0703
         await event.edit(str(e))
     asyncio.sleep(3)
-    event.delete()
+    await event.delete()
 
 @borg.on(admin_cmd(pattern="online"))  # pylint:disable=E0602
 async def _(event):
@@ -68,7 +68,7 @@ async def _(event):
     else:
       await event.edit("**Already Online.**")
       asyncio.sleep(2)
-      event.delete()
+      await event.delete()
       return
     first_name = user.last_name
     last_name = ""
@@ -83,4 +83,4 @@ async def _(event):
     except Exception as e:  # pylint:disable=C0103,W0703
         await event.edit(str(e))
     asyncio.sleep(3)
-    event.delete()
+    await event.delete()
