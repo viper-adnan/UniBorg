@@ -52,6 +52,8 @@ async def _(event):
         await event.edit(result)
     except Exception as e:  # pylint:disable=C0103,W0703
         await event.edit(str(e))
+    asyncio.sleep(3)
+    event.delete()
 
 @borg.on(admin_cmd(pattern="online"))  # pylint:disable=E0602
 async def _(event):
@@ -76,3 +78,5 @@ async def _(event):
         await event.edit(result)
     except Exception as e:  # pylint:disable=C0103,W0703
         await event.edit(str(e))
+    asyncio.sleep(3)
+    event.delete()
