@@ -21,7 +21,7 @@ regex
 requests
 selenium
 speedtest-cli
-sqlalchemy
+sqlalchemy=1.3.23
 telegraph
 urbandict
 wikipedia
