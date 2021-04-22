@@ -117,10 +117,12 @@ def humanbytes(size):
     raised_to_pow = 0
     dict_power_n = {
         0: "",
-        1: "Ki",
-        2: "Mi",
-        3: "Gi",
-        4: "Ti"
+        1: "K",
+        2: "M",
+        3: "G",
+        4: "T",
+        5: "P",
+        6: "E"
     }
     while size > power:
         size /= power
