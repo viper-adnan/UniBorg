@@ -147,4 +147,4 @@ async def _(event):
           except YouBlockedUserError: 
               await event.reply("```Please unblock me (@chotamreaderbot) u Nigga```")
               return
-          await event.edit(f"[**Pasted to Dogbin**]({response.message.entities[0].url})")
+          await event.edit(f"[Instant View]({response.message.entities[0].url})")
