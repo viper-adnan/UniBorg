@@ -1,7 +1,7 @@
 """IX.IO pastebin like site
 Syntax: .paste for dogbin
         .npaste for nekobin
-        .instant for dogbin instant"""
+        .instant for dogbin instant view"""
 from telethon import events
 import asyncio
 from datetime import datetime
@@ -106,6 +106,7 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
+    await event.edit("```Making instant view...```")
     start = datetime.now()
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
