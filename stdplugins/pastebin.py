@@ -91,6 +91,7 @@ async def _(event):
     data_json = {"heading":"UserBot","body": message,"footer":True,"code":True,"raw":True}
     print(data_json)
     r = requests.post(url, json=data_json).content.decode('utf-8')
+    await event.reply(r)
     url = f"https://pasting.codes/{r}"
     end = datetime.now()
     ms = (end - start).seconds
