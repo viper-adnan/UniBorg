@@ -88,7 +88,7 @@ async def _(event):
     else:
         message = "SYNTAX: `.paste <long text to include>`"
     url = "https://pasting.codes/api"
-    data_json = {"heading":"UserBot","body": message.decode('UTF-8'),"footer":true,"code":true,"raw":true}
+    data_json = {"heading":"UserBot","body": message.encode('UTF-8'),"footer":true,"code":true,"raw":true}
     r = requests.post(url, json=data_json).content.decode('utf-8')
     url = f"https://pasting.codes/{r}"
     end = datetime.now()
