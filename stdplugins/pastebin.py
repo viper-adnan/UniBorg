@@ -1,5 +1,6 @@
 """IX.IO pastebin like site
 Syntax: .paste for dogbin
+        .cpaste for pasting.codes
         .npaste for nekobin
         .instant for dogbin instant view"""
 from telethon import events
@@ -55,6 +56,45 @@ async def _(event):
         await event.edit("**Dogged to **[Dogbin]({})\n`in {} seconds.`\n**GoTo Original URL: {}**".format(url, ms, nurl))
     else:
         await event.edit("**Dogged to **[Dogbin]({})\n`in {} seconds.`".format(url, ms))
+
+@borg.on(admin_cmd(pattern="cpaste ?(.*)"))
+async def _(event):
+    if event.fwd_from:
+        return
+    start = datetime.now()
+    if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
+    input_str = event.pattern_match.group(1)
+    message = "SYNTAX: `.paste <long text to include>`"
+    if input_str:
+        message = input_str
+    elif event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        if previous_message.media:
+            downloaded_file_name = await borg.download_media(
+                previous_message,
+                Config.TMP_DOWNLOAD_DIRECTORY,
+                progress_callback=progress
+            )
+            m_list = None
+            with open(downloaded_file_name, "rb") as fd:
+                m_list = fd.readlines()
+            message = ""
+            for m in m_list:
+                message += m.decode("UTF-8") + "\r\n"
+            os.remove(downloaded_file_name)
+        else:
+            message = previous_message.message
+    else:
+        message = "SYNTAX: `.paste <long text to include>`"
+    url = "https://pasting.codes/api"
+    data_json = {"heading":"UserBot","body": message.decode('UTF-8'),"footer":true,"code":true,"raw":true}
+    r = requests.post(url, json=data_json).content.decode('utf-8')
+    url = f"https://pasting.codes/{r}"
+    end = datetime.now()
+    ms = (end - start).seconds
+    await event.edit(f"Pasted to [Pasting]({url})")
+    
 
 @borg.on(admin_cmd(pattern="npaste ?(.*)"))
 async def _(event):
