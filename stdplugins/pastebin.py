@@ -65,7 +65,7 @@ async def _(event):
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     input_str = event.pattern_match.group(1)
-    message = "SYNTAX: `.paste <long text to include>`"
+    message = "SYNTAX: `.cpaste <long text to include>`"
     if input_str:
         message = input_str
     elif event.reply_to_msg_id:
@@ -86,14 +86,14 @@ async def _(event):
         else:
             message = previous_message.message
     else:
-        message = "SYNTAX: `.paste <long text to include>`"
+        message = "SYNTAX: `.cpaste <long text to include>`"
     url = "https://pasting.codes/api"
     data_json = {"heading":"UserBot","body": message,"footer":True,"code":True,"raw":True}
     r = requests.post(url, data=json.dumps(data_json)).content.decode('utf-8')
     url = f"https://pasting.codes/{r}"
     end = datetime.now()
     ms = (end - start).seconds
-    await event.edit(f"Pasted to [Pasting]({url})")
+    await event.edit(f"Pasted to {url}")
     
 
 @borg.on(admin_cmd(pattern="npaste ?(.*)"))
