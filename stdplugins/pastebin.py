@@ -6,7 +6,7 @@ Syntax: .paste for dogbin
 from telethon import events
 import asyncio
 from datetime import datetime
-import os
+import os, json
 import requests
 from uniborg.util import admin_cmd
 from telethon.errors.rpcerrorlist import YouBlockedUserError
@@ -89,7 +89,7 @@ async def _(event):
         message = "SYNTAX: `.paste <long text to include>`"
     url = "https://pasting.codes/api"
     data_json = {"heading":"UserBot","body": message.encode('UTF-8'),"footer":True,"code":True,"raw":True}
-    r = requests.post(url, json=data_json).content.decode('utf-8')
+    r = requests.post(url, json=json.dumps(data_json)).content.decode('utf-8')
     url = f"https://pasting.codes/{r}"
     end = datetime.now()
     ms = (end - start).seconds
