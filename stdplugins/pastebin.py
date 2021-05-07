@@ -93,7 +93,7 @@ async def _(event):
     url = f"https://pasting.codes/{r}"
     end = datetime.now()
     ms = (end - start).seconds
-    await event.edit(f"Pasted to {url}")
+    await event.edit(f"View on [Pasting]({url})")
     
 
 @borg.on(admin_cmd(pattern="npaste ?(.*)"))
