@@ -43,7 +43,7 @@ async def _(event):
                 message += m.decode("UTF-8")
             os.remove(downloaded_file_name)
         else:
-            message = previous_message.message
+            message = previous_message.text
     else:
         message = "SYNTAX: `.paste <long text to include>`"
     url = "https://del.dog/documents"
