@@ -73,7 +73,7 @@ async def _(event):
     elif event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         if previous_message.media:
-            if isinstance(previous_message.media, MessageMediaWebPage):
+            if not isinstance(previous_message.media, MessageMediaWebPage):
               downloaded_file_name = await borg.download_media(
                   previous_message,
                   Config.TMP_DOWNLOAD_DIRECTORY,
