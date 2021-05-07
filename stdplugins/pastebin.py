@@ -71,20 +71,24 @@ async def _(event):
         code = False
     elif event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
-        if previous_message.media and not previous_message.media.webpage:
-            downloaded_file_name = await borg.download_media(
-                previous_message,
-                Config.TMP_DOWNLOAD_DIRECTORY,
-                progress_callback=progress
-            )
-            m_list = None
-            with open(downloaded_file_name, "rb") as fd:
-                m_list = fd.readlines()
-            message = ""
-            for m in m_list:
-                message += m.decode("UTF-8")
-            code = True
-            os.remove(downloaded_file_name)
+        if previous_message.media:
+            if not previous_message.media.webpage:
+              downloaded_file_name = await borg.download_media(
+                  previous_message,
+                  Config.TMP_DOWNLOAD_DIRECTORY,
+                  progress_callback=progress
+              )
+              m_list = None
+              with open(downloaded_file_name, "rb") as fd:
+                  m_list = fd.readlines()
+              message = ""
+              for m in m_list:
+                  message += m.decode("UTF-8")
+              code = True
+              os.remove(downloaded_file_name)
+            else:
+              message = previous_message.text
+              code = False
         else:
             message = previous_message.text
             code = False
