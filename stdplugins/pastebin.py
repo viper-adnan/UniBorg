@@ -9,6 +9,7 @@ from datetime import datetime
 import os, json
 import requests
 from uniborg.util import admin_cmd
+from telethon.tl.types import MessageMediaWebPage
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
 
@@ -72,7 +73,7 @@ async def _(event):
     elif event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         if previous_message.media:
-            if not previous_message.media.webpage:
+            if isinstance(previous_message.media, MessageMediaWebPage):
               downloaded_file_name = await borg.download_media(
                   previous_message,
                   Config.TMP_DOWNLOAD_DIRECTORY,
