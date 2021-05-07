@@ -68,9 +68,10 @@ async def _(event):
     message = "SYNTAX: `.cpaste <long text to include>`"
     if input_str:
         message = input_str
+        code = False
     elif event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
-        if previous_message.media:
+        if previous_message.media and not previous_message.media.webpage:
             downloaded_file_name = await borg.download_media(
                 previous_message,
                 Config.TMP_DOWNLOAD_DIRECTORY,
@@ -82,15 +83,18 @@ async def _(event):
             message = ""
             for m in m_list:
                 message += m.decode("UTF-8")
+            code = True
             os.remove(downloaded_file_name)
         else:
             message = previous_message.message
+            code = False
     else:
-        message = "SYNTAX: `.cpaste <long text to include>`"
+        message = "**SYNTAX:** `.cpaste <long text to include>`"
+        code = False
     url = "https://pasting.codes/api"
-    data_json = {"heading":"viperadnan","content": message,"footer":True,"code":True,"raw":True}
+    data_json = {"heading":"viperadnan","content": message,"footer":True,"code":code,"raw":True}
     r = requests.post(url, data=json.dumps(data_json)).content.decode('utf-8')
-    url = f"https://pasting.codes/{r}"
+    url = f"https://pasting.codes{r}"
     end = datetime.now()
     ms = (end - start).seconds
     await event.edit(f"View on [Pasting]({url})")
