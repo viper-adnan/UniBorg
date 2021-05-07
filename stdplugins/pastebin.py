@@ -16,7 +16,7 @@ def progress(current, total):
     logger.info("Downloaded {} of {}\nCompleted {}".format(current, total, (current / total) * 100))
 
 
-@borg.on(admin_cmd(pattern="paste ?(.*)"))
+@borg.on(admin_cmd(pattern="dpaste ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -57,7 +57,7 @@ async def _(event):
     else:
         await event.edit("**Dogged to **[Dogbin]({})\n`in {} seconds.`".format(url, ms))
 
-@borg.on(admin_cmd(pattern="cpaste ?(.*)"))
+@borg.on(admin_cmd(pattern="paste ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -88,7 +88,7 @@ async def _(event):
     else:
         message = "SYNTAX: `.cpaste <long text to include>`"
     url = "https://pasting.codes/api"
-    data_json = {"heading":"UserBot","body": message,"footer":True,"code":True,"raw":True}
+    data_json = {"heading":"UserBot","content": message,"footer":True,"code":True,"raw":True}
     r = requests.post(url, data=json.dumps(data_json)).content.decode('utf-8')
     url = f"https://pasting.codes/{r}"
     end = datetime.now()
