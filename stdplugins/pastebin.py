@@ -86,7 +86,7 @@ async def _(event):
             code = True
             os.remove(downloaded_file_name)
         else:
-            message = previous_message.message
+            message = previous_message.text
             code = False
     else:
         message = "**SYNTAX:** `.cpaste <long text to include>`"
