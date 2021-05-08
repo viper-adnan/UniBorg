@@ -98,11 +98,15 @@ async def _(event):
         code = False
     url = "https://pasting.codes/api"
     data_json = {"heading":"viperadnan","content": message,"footer":True,"code":code,"raw":True}
-    r = requests.post(url, data=json.dumps(data_json)).content.decode('utf-8')
-    url = f"https://pasting.codes{r}"
+    r = requests.post(url, data=json.dumps(data_json))
+    content = r.content.decode("UTF-8")
+    if r.ok:
+      msg = f"View on [Pasting](https://pasting.codes{content})"
+    else:
+      msg = content
     end = datetime.now()
     ms = (end - start).seconds
-    await event.edit(f"View on [Pasting]({url})")
+    await event.edit(f"```{msg}```")
     
 
 @borg.on(admin_cmd(pattern="npaste ?(.*)"))
