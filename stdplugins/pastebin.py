@@ -98,7 +98,7 @@ async def _(event):
         code = False
     url = "https://pasting.codes/api"
     data_json = {"heading":"viperadnan","content": message,"footer":True,"code":code,"raw":True}
-    r = requests.post(url, data=json.dumps(data_json))
+    r = requests.post(url, json=data_json)
     content = r.content.decode("UTF-8")
     if r.ok:
       msg = f"View on [Pasting](https://pasting.codes{content})"
