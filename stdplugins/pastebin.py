@@ -106,7 +106,7 @@ async def _(event):
       msg = content
     end = datetime.now()
     ms = (end - start).seconds
-    await event.edit(f"```{msg}```")
+    await event.edit(f"{msg}")
     
 
 @borg.on(admin_cmd(pattern="npaste ?(.*)"))
