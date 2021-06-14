@@ -151,7 +151,7 @@ async def _(event):
     r = requests.post(url, json=data_json)
     content = r.content.decode("UTF-8")
     if r.ok:
-      msg = f"View on [Pasting](https://pasting.ga{content})"
+      msg = f"View on [Pasting](https://pasting.ga/{content})"
     else:
       msg = content
     end = datetime.now()
