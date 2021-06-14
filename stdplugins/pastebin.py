@@ -1,6 +1,6 @@
 """IX.IO pastebin like site
-Syntax: .paste for dogbin
-        .cpaste for pasting.codes
+Syntax: .dpaste for dogbin
+        .paste for pasting.codes
         .npaste for nekobin
         .instant for dogbin instant view"""
 from telethon import events
@@ -102,6 +102,56 @@ async def _(event):
     content = r.content.decode("UTF-8")
     if r.ok:
       msg = f"View on [Pasting](https://pasting.codes{content})"
+    else:
+      msg = content
+    end = datetime.now()
+    ms = (end - start).seconds
+    await event.edit(f"{msg}")
+
+@borg.on(admin_cmd(pattern="cpaste ?(.*)"))
+async def _(event):
+    if event.fwd_from:
+        return
+    start = datetime.now()
+    if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
+    input_str = event.pattern_match.group(1)
+    message = "SYNTAX: `.cpaste <long text to include>`"
+    if input_str:
+        message = input_str
+        code = False
+    elif event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        if previous_message.media:
+            if not isinstance(previous_message.media, MessageMediaWebPage):
+              downloaded_file_name = await borg.download_media(
+                  previous_message,
+                  Config.TMP_DOWNLOAD_DIRECTORY,
+                  progress_callback=progress
+              )
+              m_list = None
+              with open(downloaded_file_name, "rb") as fd:
+                  m_list = fd.readlines()
+              message = ""
+              for m in m_list:
+                  message += m.decode("UTF-8")
+              code = True
+              os.remove(downloaded_file_name)
+            else:
+              message = previous_message.text
+              code = False
+        else:
+            message = previous_message.text
+            code = False
+    else:
+        message = "**SYNTAX:** `.cpaste <long text to include>`"
+        code = False
+    url = "https://pasting.ga/api"
+    data_json = {"heading":"viperadnan","content": message,"footer":True,"code":code,"raw":True}
+    r = requests.post(url, json=data_json)
+    content = r.content.decode("UTF-8")
+    if r.ok:
+      msg = f"View on [Pasting](https://pasting.ga{content})"
     else:
       msg = content
     end = datetime.now()
