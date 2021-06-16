@@ -19,7 +19,7 @@ async def _get_logs(event):
   await event.edit("**Getting Logs....**")
   with open('Userbit-logs.txt', 'w') as log:
       log.write(data)
-  key = requests.post('https://pasting.ga/api', json={"content": data, "heading":"Userbot Logs", "footer":True, "raw":True}).content
+  key = requests.post('https://pasting.ga/api', json={"content": data, "heading":"Userbot Logs", "footer":True, "raw":True}).content.decode('utf-8')
   url = f'https://pasting.ga/{key}'
   await event.client.send_file(
       event.chat_id,
