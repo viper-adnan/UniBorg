@@ -54,11 +54,7 @@ class Config(object):
     LOAD = []
     # foloowing plugins won't work on Heroku,
     # because of their ephemeral file system
-    NO_LOAD = [
-        "fwd",
-        "markdown",
-        "gban"
-    ]
+    NO_LOAD = [x for x in os.environ.get("NO_LOAD", "fwd sed markdown gban").split()]
     # Get your own API key from https://www.remove.bg/ or
     # feel free to use http://telegram.dog/Remove_BGBot
     REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
